@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BugFix AI</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🐞 BugFix AI</h1>
+
+<textarea id="input"></textarea>
+
+<input type="file" id="image">
+
+<select id="plan">
+<option value="free">Free</option>
+<option value="basic">Basic ₹99</option>
+<option value="pro">Pro ₹199</option>
+</select>
+
+<button onclick="explain()">Explain</button>
+<button onclick="fix()">Fix Code</button>
+<button onclick="upload()">Upload Screenshot</button>
+
+<div id="output"></div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
