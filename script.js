@@ -5,6 +5,15 @@ localStorage.setItem("user", userId);
 
 function explain() {
   fetch(API + "/api/explain", {
+    .then(res => res.json())
+.then(data => {
+  console.log(data);   // 👈 ADD THIS
+  document.getElementById("output").innerText = data.result || data.error;
+})
+.catch(err => {
+  console.error(err);  // 👈 ADD THIS
+  alert("Error aa gaya");
+});
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
@@ -21,6 +30,15 @@ function explain() {
 
 function fix() {
   fetch(API + "/api/fix", {
+    .then(res => res.json())
+.then(data => {
+  console.log(data);   // 👈 ADD THIS
+  document.getElementById("output").innerText = data.result || data.error;
+})
+.catch(err => {
+  console.error(err);  // 👈 ADD THIS
+  alert("Error aa gaya");
+});
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
