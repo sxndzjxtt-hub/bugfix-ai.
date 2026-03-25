@@ -1,0 +1,15 @@
+body {
+  background: #0f0f1a;
+  color: white;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+textarea {
+  width: 90%;
+  height: 150px;
+}
+
+button {
+  margin: 10px;
+}
