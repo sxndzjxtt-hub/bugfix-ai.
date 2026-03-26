@@ -11,7 +11,8 @@ async function typeText(el, text) {
   }
 }
 
-function handleAction(type) {
+// main action
+async function handleAction(type) {
   const input = document.getElementById("codeInput").value;
   const plan = document.getElementById("planSelect").value;
   const output = document.getElementById("outputBox");
@@ -23,45 +24,32 @@ function handleAction(type) {
 
   document.getElementById("loadingOverlay").classList.add("active");
 
-  fetch(API + "/api/" + type, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ error: input, userId, plan })
-  })
-  .then(res => res.json())
-  .then(async data => {
+  try {
+    const res = await fetch(API + "/api/" + type, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ error: input, userId, plan })
+    });
+
+    const data = await res.json();
+
     document.getElementById("loadingOverlay").classList.remove("active");
 
     const text = data.result || data.error || "No response";
 
     await typeText(output, text);
-
     output.classList.add("has-content");
-  })
-  .catch(() => {
+
+  } catch (err) {
     document.getElementById("loadingOverlay").classList.remove("active");
-    output.innerText = "Error 😢";
-  });
+    output.innerText = "Server error 😢";
+  }
 }
 
-// login
-function openLogin() {
-  document.getElementById("loginModal").style.display = "flex";
+// copy
+function copyOutput() {
+  const text = document.getElementById("outputBox").innerText;
+  navigator.clipboard.writeText(text);
 }
-function closeLogin() {
-  document.getElementById("loginModal").style.display = "none";
-}
-const card = document.querySelector(".glass-card");
-
-document.addEventListener("mousemove", (e) => {
-  const x = (window.innerWidth / 2 - e.clientX) / 25;
-  const y = (window.innerHeight / 2 - e.clientY) / 25;
-
-  card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
-});
-const glow = document.querySelector(".cursor-glow");
-
-document.addEventListener("mousemove", (e) => {
-  glow.style.left = e.clientX + "px";
-  glow.style.top = e.clientY + "px";
-});
