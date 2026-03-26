@@ -53,3 +53,10 @@ function copyOutput() {
   const text = document.getElementById("outputBox").innerText;
   navigator.clipboard.writeText(text);
 }
+function openLogin() {
+  document.getElementById("loginModal").style.display = "flex";
+}
+
+function closeLogin() {
+  document.getElementById("loginModal").style.display = "none";
+}
