@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BugFix AI</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h2>🐞 BugFix AI</h2>
+  <nav>
+    <a href="docs.html">Docs</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="login.html">Login</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<h1>Fix coding errors instantly 🚀</h1>
+
+<select id="planSelect">
+  <option value="free">Free</option>
+  <option value="basic">₹99</option>
+  <option value="pro">₹199</option>
+</select>
+
+<textarea id="codeInput" placeholder="Paste error here..."></textarea>
+
+<button onclick="handleAction('explain')">Explain</button>
+<button onclick="handleAction('fix')">Fix</button>
+
+<div id="outputBox"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
