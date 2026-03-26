@@ -1,3 +1,21 @@
+body {
+  background: #0a0a0a;
+  color: white;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+textarea {
+  width: 80%;
+  height: 120px;
+  margin: 10px;
+}
+
+button {
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+}
 /* 🔥 EXTRA PREMIUM EFFECTS ADD */
 
 /* glass shine effect */
