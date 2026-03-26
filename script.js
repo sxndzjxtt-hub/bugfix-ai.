@@ -46,3 +46,23 @@ function selectPlan(p) {
   localStorage.setItem("plan", p);
   location.href = "index.html";
 }
+// 🔥 CURSOR GLOW FOLLOW
+document.addEventListener("mousemove", e => {
+  document.body.style.setProperty("--x", e.clientX + "px");
+  document.body.style.setProperty("--y", e.clientY + "px");
+
+  const glow = document.body;
+  glow.style.setProperty("--mx", e.clientX + "px");
+  glow.style.setProperty("--my", e.clientY + "px");
+});
+
+// 🔥 PARTICLES GENERATOR
+setInterval(() => {
+  const p = document.createElement("div");
+  p.className = "particle";
+  p.style.left = Math.random() * 100 + "vw";
+  p.style.animationDuration = (4 + Math.random() * 4) + "s";
+  document.body.appendChild(p);
+
+  setTimeout(() => p.remove(), 8000);
+}, 400);
