@@ -761,3 +761,18 @@ body {
   z-index: 1;
   transform: translate(-50%, -50%);
 }
+.btn:hover {
+  transform: translateY(-4px) scale(1.03);
+}
+.output-box.has-content {
+  animation: glowPulse 2s infinite;
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 10px rgba(192,132,252,0.2); }
+  50% { box-shadow: 0 0 25px rgba(192,132,252,0.4); }
+  100% { box-shadow: 0 0 10px rgba(192,132,252,0.2); }
+}
+html {
+  scroll-behavior: smooth;
+}
