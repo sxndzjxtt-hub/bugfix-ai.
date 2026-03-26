@@ -148,3 +148,147 @@ html {
     animation: none;
   }
 }
+/* ===========================
+🔥 GOD LEVEL UI UPGRADE
+=========================== */
+
+/* 🔥 cursor glow trail */
+body::after {
+  content: "";
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(192,132,252,0.25), transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+  z-index: 999;
+  transition: transform 0.08s linear;
+}
+
+/* JS se move hoga */
+
+/* 🔥 glass depth shadow */
+.glass-card {
+  box-shadow:
+    0 0 120px rgba(192,132,252,0.08),
+    0 30px 80px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* 🔥 hover 3D pop */
+.glass-card:hover {
+  transform: rotateX(0deg) rotateY(0deg) scale(1.02) translateY(-10px);
+}
+
+/* 🔥 neon breathing border */
+@keyframes neonBreath {
+  0%,100% { box-shadow: 0 0 20px rgba(192,132,252,0.2); }
+  50% { box-shadow: 0 0 60px rgba(192,132,252,0.45); }
+}
+
+.glass-card {
+  animation: neonBreath 5s infinite ease-in-out;
+}
+
+/* 🔥 button press ripple */
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.3), transparent 60%);
+  opacity: 0;
+}
+
+.btn:active::before {
+  animation: ripple 0.4s ease;
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* 🔥 AI thinking glow */
+.loading-overlay::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(192,132,252,0.2), transparent);
+  border-radius: 50%;
+  animation: thinkingPulse 2s infinite;
+}
+
+@keyframes thinkingPulse {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0.6; }
+}
+
+/* 🔥 output typing glow */
+.output-box {
+  transition: all 0.3s ease;
+}
+
+.output-box.has-content {
+  box-shadow:
+    0 0 40px rgba(192,132,252,0.2),
+    0 0 80px rgba(244,114,182,0.1);
+}
+
+/* 🔥 subtle floating particles */
+.particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: rgba(192,132,252,0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  20% { opacity: 1; }
+  to {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+}
+
+/* 🔥 navbar glass blur upgrade */
+.top-bar {
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* 🔥 premium scroll */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#C084FC, #F472B6);
+  border-radius: 10px;
+}
+
+/* 🔥 logo glow */
+.logo-mark span {
+  text-shadow: 0 0 10px rgba(192,132,252,0.6);
+}
+
+/* 🔥 input typing glow */
+.code-input:focus {
+  text-shadow: 0 0 8px rgba(192,132,252,0.4);
+}
+
+/* 🔥 super smooth transitions */
+* {
+  transition: all 0.25s ease;
+}
