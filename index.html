@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BugFix AI</title>
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div class="page-wrapper">
 
-<!-- NAVBAR -->
 <header class="top-bar">
   <div class="logo-mark">🐞 BugFix AI</div>
   <nav class="top-nav">
@@ -21,107 +20,73 @@
   </nav>
 </header>
 
-<!-- HERO -->
 <section class="hero">
-  <h1>Fix coding errors instantly 🚀</h1>
+  <h1 class="hero-title">
+    Fix coding errors <br>
+    <span class="gradient-text">instantly with AI</span>
+  </h1>
 </section>
 
-<!-- MAIN -->
+<main class="card-scene">
 <div class="glass-card">
 
-<select id="planSelect">
+<div class="card-top-row">
+<select id="planSelect" class="plan-select">
   <option value="free">Free</option>
-  <option value="basic">Basic</option>
-  <option value="pro">Pro</option>
+  <option value="basic">Basic ₹99</option>
+  <option value="pro">Pro ₹199</option>
 </select>
 
-<textarea id="codeInput" placeholder="Paste error here..."></textarea>
+<div class="token-pill">∞ AI</div>
+</div>
 
-<button onclick="handleAction('explain')">Explain</button>
-<button onclick="handleAction('fix')">Fix</button>
+<textarea id="codeInput" class="code-input" placeholder="Paste error here..."></textarea>
 
-<div id="outputBox">Output will appear here...</div>
+<div class="btn-row">
+<button class="btn btn-explain" onclick="handleAction('explain')">Explain</button>
+<button class="btn btn-fix" onclick="handleAction('fix')">Fix Code</button>
+</div>
+
+<div class="output-box" id="outputBox"></div>
+
+</div>
+</main>
+
+<section id="docs">
+<h2>Docs</h2>
+<p>Paste error → click → get fix instantly</p>
+</section>
+
+<section id="pricing">
+<h2>Pricing</h2>
+<p>Free: 3/day</p>
+<p>Basic: ₹99</p>
+<p>Pro: Unlimited</p>
+</section>
+
+<footer class="footer">
+<span>© 2026 BugFix AI 🚀</span>
+</footer>
 
 </div>
 
-<!-- DOCS -->
-<section id="docs">
-  <h2>Docs</h2>
-  <p>Paste error → click → get fix</p>
-</section>
-
-<!-- PRICING -->
-<section id="pricing">
-  <h2>Pricing</h2>
-  <p>Free: 3 uses</p>
-  <p>Basic: ₹99</p>
-  <p>Pro: Unlimited</p>
-</section>
-
-<!-- LOGIN POPUP -->
-<div id="loginModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;">
-  <div style="background:#111; padding:20px;">
-    <h3>Login</h3>
-    <input placeholder="Email"><br><br>
-    <input placeholder="Password" type="password"><br><br>
-    <button onclick="closeLogin()">Close</button>
-  </div>
+<!-- LOGIN -->
+<div id="loginModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); justify-content:center; align-items:center;">
+<div style="background:#111; padding:30px; border-radius:12px;">
+<h3>Login</h3>
+<input placeholder="Email"><br><br>
+<input placeholder="Password"><br><br>
+<button onclick="closeLogin()">Close</button>
+</div>
 </div>
 
 <!-- LOADING -->
-<div id="loadingOverlay" style="display:none; position:fixed; inset:0; background:black; color:white; justify-content:center; align-items:center;">
-Loading...
+<div id="loadingOverlay" class="loading-overlay">
+<div class="loader-ring"></div>
+<p id="loaderText">Thinking…</p>
 </div>
 
-<script>
-
-// ✅ API
-const API = "https://bugfix-backend-1.onrender.com";
-const userId = localStorage.getItem("user") || Date.now();
-localStorage.setItem("user", userId);
-
-// 🚀 MAIN FUNCTION
-function handleAction(type) {
-  const input = document.getElementById("codeInput").value;
-  const plan = document.getElementById("planSelect").value;
-
-  if (!input.trim()) {
-    alert("Enter something 😅");
-    return;
-  }
-
-  document.getElementById("loadingOverlay").style.display = "flex";
-
-  const endpoint = type === "explain" ? "/api/explain" : "/api/fix";
-
-  fetch(API + endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ error: input, userId, plan })
-  })
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("loadingOverlay").style.display = "none";
-    document.getElementById("outputBox").innerText = data.result || data.error;
-  })
-  .catch(() => {
-    document.getElementById("loadingOverlay").style.display = "none";
-    alert("Error 😭");
-  });
-}
-
-// 🔐 LOGIN
-function openLogin() {
-  document.getElementById("loginModal").style.display = "flex";
-}
-
-function closeLogin() {
-  document.getElementById("loginModal").style.display = "none";
-}
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
