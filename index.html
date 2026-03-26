@@ -1,35 +1,174 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>BugFix AI</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BugFix AI — Fix Code Instantly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<div class="container">
+  <!-- Ambient background orbs -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
 
-<h1>🐞 BugFix AI</h1>
+  <!-- Noise texture overlay -->
+  <div class="noise"></div>
 
-<textarea id="input"></textarea>
+  <div class="page-wrapper">
 
-<input type="file" id="image">
+    <!-- Header -->
+    <header class="top-bar">
+      <div class="logo-mark">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <circle cx="11" cy="11" r="10" stroke="url(#lg)" stroke-width="1.5"/>
+          <path d="M7 11.5L10 14.5L15 8.5" stroke="url(#lg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="lg" x1="0" y1="0" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#C084FC"/>
+              <stop offset="1" stop-color="#F472B6"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span>BugFix AI</span>
+      </div>
+      <nav class="top-nav">
+        <a href="#">Docs</a>
+        <a href="#">Pricing</a>
+        <a href="#" class="nav-cta">Sign In</a>
+      </nav>
+    </header>
 
-<select id="plan">
-<option value="free">Free</option>
-<option value="basic">Basic ₹99</option>
-<option value="pro">Pro ₹199</option>
-</select>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Powered by Claude Sonnet
+      </div>
+      <h1 class="hero-title">
+        Fix coding errors<br />
+        <span class="gradient-text">instantly with AI</span>
+      </h1>
+      <p class="hero-sub">Paste your broken code. Get an explanation, a fix, and clarity — in seconds.</p>
+    </section>
 
-<button onclick="explain()">Explain</button>
-<button onclick="fix()">Fix Code</button>
-<button onclick="upload()">Upload Screenshot</button>
+    <!-- Main 3D Card -->
+    <main class="card-scene" id="cardScene">
+      <div class="glass-card" id="mainCard">
 
-<div id="output"></div>
+        <!-- Card glow border -->
+        <div class="card-border-glow"></div>
 
-</div>
+        <!-- Plan selector row -->
+        <div class="card-top-row">
+          <div class="select-wrapper">
+            <svg class="select-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 4.5L7 9.5L12 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <select id="planSelect" class="plan-select">
+              <option value="free">Free Plan</option>
+              <option value="basic">Basic — ₹99/mo</option>
+              <option value="pro">Pro — ₹199/mo</option>
+            </select>
+          </div>
+          <div class="token-pill" id="tokenPill">∞ Unlimited</div>
+        </div>
 
-<script src="script.js"></script>
+        <!-- Textarea -->
+        <div class="input-section">
+          <label class="field-label">Your Code / Error</label>
+          <div class="textarea-wrapper">
+            <div class="line-numbers" id="lineNumbers">1</div>
+            <textarea
+              id="codeInput"
+              class="code-input"
+              spellcheck="false"
+              placeholder="// Paste your code or error message here...
+// Example:
+TypeError: Cannot read properties of undefined (reading 'map')
+  at App.js:42"
+            ></textarea>
+          </div>
+        </div>
 
+        <!-- Action Buttons -->
+        <div class="btn-row">
+          <button class="btn btn-explain" id="btnExplain" onclick="handleAction('explain')">
+            <span class="btn-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M8 7.5V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="8" cy="5.5" r="0.75" fill="currentColor"/>
+              </svg>
+            </span>
+            Explain Error
+          </button>
+          <button class="btn btn-fix" id="btnFix" onclick="handleAction('fix')">
+            <span class="btn-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8L6.5 11.5L13 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            Fix Code
+          </button>
+        </div>
+
+        <!-- Output -->
+        <div class="output-section" id="outputSection">
+          <div class="output-header">
+            <div class="output-label-row">
+              <span class="output-dot"></span>
+              <span class="field-label">AI Response</span>
+            </div>
+            <button class="copy-btn" id="copyBtn" onclick="copyOutput()">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <rect x="1" y="4" width="8" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M4 4V2.5A1.5 1.5 0 015.5 1H11.5A1.5 1.5 0 0113 2.5V8.5A1.5 1.5 0 0111.5 10H10" stroke="currentColor" stroke-width="1.2"/>
+              </svg>
+              Copy
+            </button>
+          </div>
+          <div class="output-box" id="outputBox">
+            <div class="output-placeholder">
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" opacity="0.3">
+                <circle cx="18" cy="18" r="16" stroke="url(#p1)" stroke-width="1.5"/>
+                <path d="M12 18L16.5 22.5L24 13.5" stroke="url(#p1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <defs>
+                  <linearGradient id="p1" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#C084FC"/>
+                    <stop offset="1" stop-color="#F472B6"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <p>Your AI output will appear here</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.glass-card -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>© 2026 BugFix AI</span>
+      <span class="footer-divider">·</span>
+      <a href="#">Privacy</a>
+      <span class="footer-divider">·</span>
+      <a href="#">Terms</a>
+    </footer>
+
+  </div><!-- /.page-wrapper -->
+
+  <!-- Loading overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loader-ring"></div>
+    <p class="loader-text" id="loaderText">Thinking…</p>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
