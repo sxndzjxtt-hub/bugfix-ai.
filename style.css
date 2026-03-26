@@ -1,0 +1,150 @@
+/* 🔥 EXTRA PREMIUM EFFECTS ADD */
+
+/* glass shine effect */
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mx,50%) var(--my,50%),
+    rgba(255,255,255,0.12),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.glass-card:hover::before {
+  opacity: 1;
+}
+
+/* neon border pulse */
+@keyframes borderPulse {
+  0% { box-shadow: 0 0 0 rgba(192,132,252,0.2); }
+  50% { box-shadow: 0 0 40px rgba(192,132,252,0.4); }
+  100% { box-shadow: 0 0 0 rgba(192,132,252,0.2); }
+}
+
+.glass-card {
+  animation: borderPulse 6s infinite ease-in-out;
+}
+
+/* button glow animation */
+.btn-fix {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-fix::before {
+  content: "";
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.3),
+    transparent
+  );
+  transform: rotate(25deg);
+  top: -20%;
+  left: -20%;
+  opacity: 0;
+}
+
+.btn-fix:hover::before {
+  animation: shine 1s ease;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) rotate(25deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%) rotate(25deg); opacity: 0; }
+}
+
+/* hover lift effect */
+.btn:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* smooth page fade */
+body {
+  animation: pageFade 0.6s ease;
+}
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* output glow */
+.output-box.has-content {
+  box-shadow:
+    0 0 30px rgba(192,132,252,0.15),
+    inset 0 0 10px rgba(255,255,255,0.05);
+}
+
+/* floating effect */
+@keyframes floatCard {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.glass-card {
+  animation: floatCard 6s ease-in-out infinite;
+}
+
+/* gradient animated text */
+.gradient-text {
+  background: linear-gradient(
+    270deg,
+    #C084FC,
+    #F472B6,
+    #FB923C,
+    #C084FC
+  );
+  background-size: 600% 600%;
+  animation: gradientMove 8s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* cursor glow */
+.cursor-blink {
+  box-shadow: 0 0 10px var(--purple);
+}
+
+/* scroll smooth */
+html {
+  scroll-behavior: smooth;
+}
+
+/* input focus glow */
+.textarea-wrapper:focus-within {
+  box-shadow:
+    0 0 0 2px rgba(192,132,252,0.3),
+    0 0 40px rgba(192,132,252,0.15);
+}
+
+/* navbar hover glow */
+.top-nav a:hover {
+  box-shadow: 0 0 15px rgba(192,132,252,0.2);
+}
+
+/* subtle parallax effect */
+.bg-orb {
+  animation: orbFloat 14s ease-in-out infinite alternate;
+}
+
+/* mobile smoothness */
+@media (max-width:600px) {
+  .glass-card {
+    animation: none;
+  }
+}
