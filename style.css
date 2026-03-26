@@ -751,3 +751,13 @@ body {
   .hero-title { letter-spacing: -1.5px; }
   .glass-card { padding: 20px 16px; }
 }
+.cursor-glow {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(192,132,252,0.25), transparent 70%);
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
